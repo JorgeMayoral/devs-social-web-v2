@@ -3,7 +3,7 @@ import { UserContext } from "../context/userContext";
 import loginService from '../services/login';
 
 export function useUser() {
-  const {user, setUser, token, setToken} = useContext(UserContext)
+  const {token, setToken} = useContext(UserContext)
   const [state, setState] = useState({loading: false})
 
   const login = useCallback(({username, password}) => {
@@ -20,5 +20,10 @@ export function useUser() {
     })
   }, [setToken])
 
-  return {login, isLogged: Boolean(token), isLoginLoading: state.loading}
+  const logout = useCallback(() => {
+    sessionStorage.removeItem('devs-social-token')
+    setToken!(null)
+  }, [setToken])
+
+  return {login, logout, isLogged: Boolean(token), isLoginLoading: state.loading}
 }
