@@ -1,5 +1,6 @@
+import { Container } from '@mui/material';
 import { useContext } from 'react';
-import PostCard from '../components/PostCard';
+import PostList from '../components/PostList';
 import { ExploreContext } from '../context/exploreContext';
 import { useExplore } from '../hooks/useExplore';
 
@@ -8,14 +9,9 @@ const ExplorePage = () => {
   const { loadMore } = useExplore();
 
   return (
-    <div>
-      {posts?.map((post) => (
-        <PostCard post={post} key={post.id} />
-      ))}
-      <button type="button" onClick={loadMore}>
-        Load more
-      </button>
-    </div>
+    <Container>
+      <PostList posts={posts!} loadMore={loadMore} />
+    </Container>
   );
 };
 
