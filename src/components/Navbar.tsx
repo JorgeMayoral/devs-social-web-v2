@@ -17,6 +17,7 @@ const Navbar = () => {
       <div>
         <Link to="/home">Home</Link>
         <Link to="/explore">Explore</Link>
+        <Link to="/profile">Profile</Link>
         <button type="button" onClick={logout}>
           Logout
         </button>

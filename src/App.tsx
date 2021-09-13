@@ -13,6 +13,7 @@ import { useUser } from './hooks/useUser';
 import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
   const { isLogged } = useUser();
@@ -35,6 +36,9 @@ function App() {
               </Route>
               <Route exact path="/explore">
                 <ExplorePage />
+              </Route>
+              <Route exact path="/profile">
+                <ProfilePage />
               </Route>
             </Switch>
           </Router>
