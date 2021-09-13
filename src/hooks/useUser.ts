@@ -1,6 +1,7 @@
 import { useCallback, useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import loginService from '../services/login';
+import registerService from "../services/register";
 
 export function useUser() {
   const {token, setToken} = useContext(UserContext)
@@ -25,5 +26,19 @@ export function useUser() {
     setToken!(null)
   }, [setToken])
 
-  return {login, logout, isLogged: Boolean(token), isLoginLoading: state.loading}
+  const register = useCallback(({username, name, email, password}) => {
+    setState({loading: true})
+
+    registerService({username, name, email, password}).then(token => {
+      sessionStorage.setItem('devs-social-token', token)
+      setState({loading: false})
+      setToken!(token)
+    }).catch(err => {
+      sessionStorage.removeItem('devs-social-token')
+      setState({loading: false})
+      console.error(err)
+    })
+  }, [setToken])
+
+  return {login, logout, register, isLogged: Boolean(token), isLoginLoading: state.loading}
 }
