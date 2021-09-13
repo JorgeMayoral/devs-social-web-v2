@@ -1,6 +1,7 @@
+import { Container } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
-import PostCard from '../components/PostCard';
+import PostList from '../components/PostList';
 import { getUser } from '../services/getUser';
 import { getUserPosts } from '../services/getUserPosts';
 import { Post, RouteParams, User } from '../types';
@@ -54,18 +55,11 @@ const UserPage = () => {
   }
 
   return (
-    <div>
+    <Container>
       <h1>{user?.name}</h1>
       <h2>{user?.username}</h2>
-      {userPosts.map((post) => (
-        <PostCard post={post} key={post.id} />
-      ))}
-      {!state.allLoaded && user.posts?.length! > 0 && (
-        <button type="button" onClick={handleLoadMore} disabled={state.loading}>
-          Load more
-        </button>
-      )}
-    </div>
+      <PostList posts={userPosts} loadMore={handleLoadMore} />
+    </Container>
   );
 };
 
