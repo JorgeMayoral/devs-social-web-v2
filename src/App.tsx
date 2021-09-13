@@ -5,6 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
+import Navbar from './components/Navbar';
 import { ExploreContextProvider } from './context/exploreContext';
 import { TimelineContextProvider } from './context/timelineContext';
 import { UserContextProvider } from './context/userContext';
@@ -21,6 +22,7 @@ function App() {
       <TimelineContextProvider>
         <ExploreContextProvider>
           <Router>
+            <Navbar />
             <Switch>
               <Route exact path="/">
                 {isLogged ? <Redirect to="/home" /> : <Redirect to="/login" />}
