@@ -1,3 +1,4 @@
+import { CssBaseline } from '@mui/material';
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -21,36 +22,42 @@ function App() {
   const { isLogged } = useUser();
 
   return (
-    <UserContextProvider>
-      <TimelineContextProvider>
-        <ExploreContextProvider>
-          <Router>
-            <Navbar />
-            <Switch>
-              <Route exact path="/">
-                {isLogged ? <Redirect to="/home" /> : <Redirect to="/login" />}
-              </Route>
-              <Route exact path="/home">
-                <HomePage />
-              </Route>
-              <Route exact path="/login">
-                <LoginPage />
-              </Route>
-              <Route exact path="/register">
-                <RegisterPage />
-              </Route>
-              <Route exact path="/explore">
-                <ExplorePage />
-              </Route>
-              <Route exact path="/profile">
-                <ProfilePage />
-              </Route>
-              <Route path="/user/:id" children={<UserPage />} />
-            </Switch>
-          </Router>
-        </ExploreContextProvider>
-      </TimelineContextProvider>
-    </UserContextProvider>
+    <CssBaseline>
+      <UserContextProvider>
+        <TimelineContextProvider>
+          <ExploreContextProvider>
+            <Router>
+              <Navbar />
+              <Switch>
+                <Route exact path="/">
+                  {isLogged ? (
+                    <Redirect to="/home" />
+                  ) : (
+                    <Redirect to="/login" />
+                  )}
+                </Route>
+                <Route exact path="/home">
+                  <HomePage />
+                </Route>
+                <Route exact path="/login">
+                  <LoginPage />
+                </Route>
+                <Route exact path="/register">
+                  <RegisterPage />
+                </Route>
+                <Route exact path="/explore">
+                  <ExplorePage />
+                </Route>
+                <Route exact path="/profile">
+                  <ProfilePage />
+                </Route>
+                <Route path="/user/:id" children={<UserPage />} />
+              </Switch>
+            </Router>
+          </ExploreContextProvider>
+        </TimelineContextProvider>
+      </UserContextProvider>
+    </CssBaseline>
   );
 }
 
