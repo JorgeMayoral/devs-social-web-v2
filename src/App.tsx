@@ -15,6 +15,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
 import RegisterPage from './pages/RegisterPage';
+import UserPage from './pages/UserPage';
 
 function App() {
   const { isLogged } = useUser();
@@ -44,6 +45,7 @@ function App() {
               <Route exact path="/profile">
                 <ProfilePage />
               </Route>
+              <Route path="/user/:id" children={<UserPage />} />
             </Switch>
           </Router>
         </ExploreContextProvider>
