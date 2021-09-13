@@ -14,7 +14,7 @@ export function useUser() {
       setState({loading: false})
       setToken!(token)
     }).catch(err => {
-      sessionStorage.removeItem('devs-social-toke')
+      sessionStorage.removeItem('devs-social-token')
       setState({loading: false})
       console.error(err)
     })
