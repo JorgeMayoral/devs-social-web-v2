@@ -1,11 +1,6 @@
 import { CssBaseline } from '@mui/material';
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import { ExploreContextProvider } from './context/exploreContext';
 import { TimelineContextProvider } from './context/timelineContext';
@@ -30,11 +25,7 @@ function App() {
               <Navbar />
               <Switch>
                 <Route exact path="/">
-                  {isLogged ? (
-                    <Redirect to="/home" />
-                  ) : (
-                    <Redirect to="/login" />
-                  )}
+                  {isLogged ? <HomePage /> : <LoginPage />}
                 </Route>
                 <Route exact path="/home">
                   <HomePage />
