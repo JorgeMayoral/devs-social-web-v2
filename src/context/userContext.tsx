@@ -1,10 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import { getProfile } from '../services/getProfile';
-import { LoggedUser } from '../types';
-
-type ProviderProps = {
-  children: JSX.Element;
-};
+import { LoggedUser, ProviderProps } from '../types';
 
 type UserContextData = {
   user: LoggedUser | null;
