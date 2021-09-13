@@ -1,5 +1,5 @@
-import { Explore, Home, Login, Logout, Person } from '@mui/icons-material';
-import { AppBar, Typography, Stack, IconButton, Tooltip } from '@mui/material';
+import { Explore, Home, Logout, Person } from '@mui/icons-material';
+import { AppBar, IconButton, Stack, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
@@ -43,18 +43,6 @@ const Navbar = () => {
     );
   }
 
-  function publicLinks() {
-    return (
-      <Stack direction="row" spacing={1}>
-        <Link to="/login">
-          <TooltipIconButton title="Login">
-            <Login sx={{ color: 'white' }} fontSize="small" />
-          </TooltipIconButton>
-        </Link>
-      </Stack>
-    );
-  }
-
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={appbarStyle}>
@@ -62,7 +50,7 @@ const Navbar = () => {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             DevsSocial
           </Typography>
-          {isLogged ? loggedUserLinks() : publicLinks()}
+          {isLogged ? loggedUserLinks() : null}
         </Stack>
       </AppBar>
     </Box>
