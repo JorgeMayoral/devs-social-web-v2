@@ -48,7 +48,7 @@ const ProfilePage = () => {
       {userPosts.map((post) => (
         <PostCard post={post} key={post.id} />
       ))}
-      {!state.allLoaded && (
+      {!state.allLoaded && user?.posts.length! > 0 && (
         <button type="button" onClick={handleLoadMore} disabled={state.loading}>
           Load more
         </button>
