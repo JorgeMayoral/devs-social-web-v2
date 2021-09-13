@@ -3,11 +3,13 @@ import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { useUser } from '../hooks/useUser';
 
-const LoginPage = () => {
+const RegisterPage = () => {
   const [username, setUsername] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const { isLogged, isLoginLoading, login } = useUser();
+  const { isLogged, isLoginLoading, register } = useUser();
 
   const history = useHistory();
 
@@ -19,7 +21,7 @@ const LoginPage = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    login({ username, password });
+    register({ username, name, email, password });
   };
 
   return (
@@ -32,6 +34,20 @@ const LoginPage = () => {
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
+        <label htmlFor="nameInput">Name</label>
+        <input
+          type="text"
+          name="nameInput"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
+        <label htmlFor="emailInput">Email</label>
+        <input
+          type="email"
+          name="emailInput"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
         <label htmlFor="passwordInput">Password</label>
         <input
           type="password"
@@ -40,15 +56,15 @@ const LoginPage = () => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <button type="button" onClick={handleSubmit} disabled={isLoginLoading}>
-          Login
+          Register
         </button>
       </form>
       <p>
-        Don't have an account? <Link to="/register">Register</Link>.
+        Already have an account? <Link to="/login">Login</Link>.
       </p>
       {isLoginLoading && <p>Loading...</p>}
     </>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

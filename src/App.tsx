@@ -14,6 +14,7 @@ import ExplorePage from './pages/ExplorePage';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProfilePage from './pages/ProfilePage';
+import RegisterPage from './pages/RegisterPage';
 
 function App() {
   const { isLogged } = useUser();
@@ -33,6 +34,9 @@ function App() {
               </Route>
               <Route exact path="/login">
                 <LoginPage />
+              </Route>
+              <Route exact path="/register">
+                <RegisterPage />
               </Route>
               <Route exact path="/explore">
                 <ExplorePage />

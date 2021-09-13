@@ -25,10 +25,19 @@ const Navbar = () => {
     );
   }
 
+  function publicLinks() {
+    return (
+      <div>
+        <Link to="/login">Login</Link>
+        <Link to="/register">Register</Link>
+      </div>
+    );
+  }
+
   return (
     <div>
       <h2>Devs Social</h2>
-      {isLogged ? loggedUserLinks() : <Link to="/login">Login</Link>}
+      {isLogged ? loggedUserLinks() : publicLinks()}
     </div>
   );
 };
