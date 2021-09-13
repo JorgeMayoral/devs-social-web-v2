@@ -1,3 +1,4 @@
+import { Button, Container, Stack, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
@@ -23,31 +24,38 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <form>
-        <label htmlFor="usernameInput">Username</label>
-        <input
+    <Container>
+      <Stack spacing={2} paddingY={3}>
+        <Typography variant="h2">Welcome Back!</Typography>
+        <TextField
           type="text"
           name="usernameInput"
+          label="Username"
+          variant="outlined"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
         />
-        <label htmlFor="passwordInput">Password</label>
-        <input
+        <TextField
           type="password"
           name="passwordInput"
+          label="Password"
+          variant="outlined"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button type="button" onClick={handleSubmit} disabled={isLoginLoading}>
-          Login
-        </button>
-      </form>
-      <p>
+      </Stack>
+      <Button
+        variant="contained"
+        onClick={handleSubmit}
+        disabled={isLoginLoading}
+      >
+        Login
+      </Button>
+      <Typography variant="body1" paddingY={3}>
         Don't have an account? <Link to="/register">Register</Link>.
-      </p>
+      </Typography>
       {isLoginLoading && <p>Loading...</p>}
-    </>
+    </Container>
   );
 };
 
