@@ -2,9 +2,10 @@ import { useCallback, useContext, useState } from "react";
 import { UserContext } from "../context/userContext";
 import loginService from '../services/login';
 import registerService from "../services/register";
+import followService from "../services/follow";
 
 export function useUser() {
-  const {token, setToken} = useContext(UserContext)
+  const {user, setUser, token, setToken} = useContext(UserContext)
   const [state, setState] = useState({loading: false})
 
   const login = useCallback(({username, password}) => {
@@ -40,5 +41,21 @@ export function useUser() {
     })
   }, [setToken])
 
-  return {login, logout, register, isLogged: Boolean(token), isLoginLoading: state.loading}
+  const follow = useCallback(({id}) => {
+    followService(token!, id).then(() => {
+      const updatedUser = user!
+
+      if (updatedUser.following.includes(id)) {
+        updatedUser.following.filter(followId => followId !== id)
+      } else {
+        updatedUser.following.push(id)
+      }
+
+      setUser!(updatedUser)
+    }).catch(err => {
+      console.error(err)
+    })
+  }, [setUser, token, user])
+
+  return {login, logout, register, follow, isLogged: Boolean(token), isLoginLoading: state.loading}
 }
