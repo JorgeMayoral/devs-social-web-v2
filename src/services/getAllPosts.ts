@@ -1,7 +1,7 @@
-import { URL, LIMIT } from "../utils/constants"
+import { LIMIT } from "../utils/constants"
 
 export function getAllPosts(offset: number) {
-  return fetch(`${URL}/v1/post/all?offset=${offset}&limit=${LIMIT}`, {
+  return fetch(`/v1/post/all?offset=${offset}&limit=${LIMIT}`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",

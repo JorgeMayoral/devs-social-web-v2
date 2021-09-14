@@ -1,7 +1,5 @@
-import { URL } from "../utils/constants"
-
 export function createPost(token: string, content: string) {
-  return fetch(`${URL}/v1/post/`, {
+  return fetch(`/v1/post/`, {
     method: 'POST',
     headers: {
       "Authorization": `Bearer ${token}`,

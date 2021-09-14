@@ -1,5 +1,3 @@
-import { URL } from "../utils/constants"
-
 type RegisterData = {
   username: string
   name: string
@@ -8,7 +6,7 @@ type RegisterData = {
 }
 
 export default function register({username, name, email,  password}: RegisterData) {
-  return fetch(`${URL}/v1/user/register`, {
+  return fetch(`/v1/user/register`, {
     method: 'POST',
     headers: {
       'Content-Type': "application/json"

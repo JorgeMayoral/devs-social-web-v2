@@ -1,12 +1,10 @@
-import { URL } from "../utils/constants"
-
 type LoginData = {
   username: string
   password: string
 }
 
 export default function login({username, password}: LoginData) {
-  return fetch(`${URL}/v1/user/login`, {
+  return fetch(`/v1/user/login`, {
     method: 'POST',
     headers: {
       'Content-Type': "application/json"
