@@ -1,5 +1,7 @@
+import { URL } from "../utils/constants"
+
 export function getUser(id: string) {
-  return fetch(`/v1/user/${id}`, {
+  return fetch(`${URL}/v1/user/${id}`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",

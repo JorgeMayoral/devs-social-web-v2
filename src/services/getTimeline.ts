@@ -1,7 +1,7 @@
-import { LIMIT } from "../utils/constants"
+import { LIMIT, URL } from "../utils/constants"
 
 export function getTimeline(token: string, offset: number) {
-  return fetch(`/v1/post/timeline?offset=${offset}&limit=${LIMIT}`, {
+  return fetch(`${URL}/v1/post/timeline?offset=${offset}&limit=${LIMIT}`, {
     method: 'GET',
     headers: {
       "Authorization": `Bearer ${token}`,

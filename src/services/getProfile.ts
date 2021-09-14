@@ -1,5 +1,7 @@
+import { URL } from "../utils/constants"
+
 export function getProfile(token: string) {
-  return fetch(`/v1/user/profile`, {
+  return fetch(`${URL}/v1/user/profile`, {
     method: 'GET',
     headers: {
       "Authorization": `Bearer ${token}`,
