@@ -22,7 +22,7 @@ const PostCard = ({ post }: PostCardProp) => {
   const { user } = useContext(UserContext);
 
   return (
-    <Card>
+    <Card elevation={2}>
       <Link
         to={`/user/${post.authorId}`}
         style={{ textDecoration: 'none', color: 'inherit' }}
