@@ -1,5 +1,6 @@
 import { useContext, useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
+import ProfileHeader from '../components/ProfileHeader';
 import { UserContext } from '../context/userContext';
 import { getUserPosts } from '../services/getUserPosts';
 import { Post } from '../types';
@@ -18,7 +19,6 @@ const ProfilePage = () => {
 
     getUserPosts(user!._id, offset)
       .then((data) => {
-        console.log(data);
         setUserPosts((prev) => prev.concat(data));
 
         if (data.length > 0) {
@@ -43,8 +43,7 @@ const ProfilePage = () => {
 
   return (
     <div>
-      <h1>{user?.name}</h1>
-      <h2>{user?.username}</h2>
+      <ProfileHeader user={user!} />
       {userPosts.map((post) => (
         <PostCard post={post} key={post.id} />
       ))}

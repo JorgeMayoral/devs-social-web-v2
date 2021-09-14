@@ -1,7 +1,11 @@
-import { Container } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { Add, Remove } from '@mui/icons-material';
+import { Container, IconButton, Stack, Typography } from '@mui/material';
+import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router';
 import PostList from '../components/PostList';
+import ProfileHeader from '../components/ProfileHeader';
+import { UserContext } from '../context/userContext';
+import { useUser } from '../hooks/useUser';
 import { getUser } from '../services/getUser';
 import { getUserPosts } from '../services/getUserPosts';
 import { Post, RouteParams, User } from '../types';
@@ -12,6 +16,10 @@ const UserPage = () => {
   const [userPosts, setUserPosts] = useState<Post[]>([]);
   const [offset, setOffset] = useState(10);
   const [state, setState] = useState({ loading: false, allLoaded: false });
+  const [isFollowing, setIsFollowing] = useState(false);
+
+  const { user: loggedUser } = useContext(UserContext);
+  const { follow } = useUser();
 
   const { id } = useParams<RouteParams>();
 
@@ -21,7 +29,6 @@ const UserPage = () => {
 
     getUserPosts(id, offset)
       .then((data) => {
-        console.log(data);
         setUserPosts((prev) => prev.concat(data));
 
         if (data.length > 0) {
@@ -36,6 +43,11 @@ const UserPage = () => {
       });
   }
 
+  function handleFollow() {
+    follow({ id });
+    setIsFollowing((prev) => !prev);
+  }
+
   useEffect(() => {
     setState({ loading: true, allLoaded: false });
 
@@ -47,17 +59,34 @@ const UserPage = () => {
       setUser(data);
     });
 
+    setIsFollowing(loggedUser!.following.includes(id));
+
     setState({ loading: false, allLoaded: false });
-  }, [user, id]);
+  }, [id, loggedUser]);
 
   if (state.loading) {
-    return <h1>Loading...</h1>;
+    return <Typography variant="h3">Loading...</Typography>;
   }
 
   return (
     <Container>
-      <h1>{user?.name}</h1>
-      <h2>{user?.username}</h2>
+      <ProfileHeader user={user} />
+
+      {!isFollowing ? (
+        <IconButton onClick={handleFollow}>
+          <Stack direction="row" alignItems="center">
+            <Add />
+            <Typography variant="h6">Follow</Typography>
+          </Stack>
+        </IconButton>
+      ) : (
+        <IconButton onClick={handleFollow}>
+          <Stack direction="row" alignItems="center">
+            <Remove />
+            <Typography variant="h6">Unfollow</Typography>
+          </Stack>
+        </IconButton>
+      )}
       <PostList posts={userPosts} loadMore={handleLoadMore} />
     </Container>
   );
