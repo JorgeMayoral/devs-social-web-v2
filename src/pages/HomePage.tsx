@@ -1,16 +1,21 @@
+import { Container } from '@mui/material';
 import { useContext } from 'react';
-import { UserContext } from '../context/userContext';
+import PostList from '../components/PostList';
+import { TimelineContext } from '../context/timelineContext';
+import { useTimeline } from '../hooks/useTimeline';
 
 const HomePage = () => {
-  const userContext = useContext(UserContext);
+  const { timeline } = useContext(TimelineContext);
+  const { loadMore, isAllLoaded } = useTimeline();
 
   return (
-    <div>
-      <header>
-        <p>Devs Social Web</p>
-        <h1>{userContext?.user?.name}</h1>
-      </header>
-    </div>
+    <Container>
+      <PostList
+        posts={timeline!}
+        loadMore={loadMore}
+        isAllLoaded={isAllLoaded}
+      />
+    </Container>
   );
 };
 

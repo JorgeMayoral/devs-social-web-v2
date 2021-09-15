@@ -6,12 +6,16 @@ import { UserContext } from './userContext';
 type TimelineContextData = {
   timeline: Post[];
   setTimeline: React.Dispatch<React.SetStateAction<Post[]>>;
+  currentOffset: number;
+  setCurrentOffset: React.Dispatch<React.SetStateAction<number>>;
 };
 
 const TimelineContext = createContext<Partial<TimelineContextData>>({});
 
 function TimelineContextProvider({ children }: ProviderProps) {
   const [timeline, setTimeline] = useState<Post[]>([]);
+  const [currentOffset, setCurrentOffset] = useState<number>(0);
+
   const { token } = useContext(UserContext);
 
   useEffect(() => {
@@ -23,7 +27,9 @@ function TimelineContextProvider({ children }: ProviderProps) {
   }, [token]);
 
   return (
-    <TimelineContext.Provider value={{ timeline, setTimeline }}>
+    <TimelineContext.Provider
+      value={{ timeline, setTimeline, currentOffset, setCurrentOffset }}
+    >
       {children}
     </TimelineContext.Provider>
   );
