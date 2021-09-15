@@ -3,6 +3,7 @@ import { UserContext } from "../context/userContext";
 import loginService from '../services/login';
 import registerService from "../services/register";
 import followService from "../services/follow";
+import likePostService from "../services/likePost";
 
 export function useUser() {
   const {user, setUser, token, setToken} = useContext(UserContext)
@@ -57,5 +58,20 @@ export function useUser() {
     })
   }, [setUser, token, user])
 
-  return {login, logout, register, follow, isLogged: Boolean(token), isLoginLoading: state.loading}
+  const likePost = useCallback(({id}) => {
+    likePostService(token!, id).then(() => {
+      const updatedUser = user!
+
+      if (updatedUser.likedPosts.includes(id)) {
+        updatedUser.likedPosts.filter(postId => postId !== id)
+      } else {
+        updatedUser.likedPosts.push(id)
+      }
+      setUser!(updatedUser)
+    }).catch(err => {
+      console.error(err)
+    })
+  }, [setUser, token, user])
+
+  return {login, logout, register, follow, likePost, isLogged: Boolean(token), isLoginLoading: state.loading}
 }

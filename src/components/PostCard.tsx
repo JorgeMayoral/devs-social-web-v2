@@ -12,6 +12,7 @@ import { formatDistance } from 'date-fns';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { UserContext } from '../context/userContext';
+import { useUser } from '../hooks/useUser';
 import { Post } from '../types';
 
 type PostCardProp = {
@@ -20,6 +21,11 @@ type PostCardProp = {
 
 const PostCard = ({ post }: PostCardProp) => {
   const { user } = useContext(UserContext);
+  const { likePost } = useUser();
+
+  function handleLikePost() {
+    likePost({ id: post.id });
+  }
 
   return (
     <Card elevation={2}>
@@ -47,12 +53,13 @@ const PostCard = ({ post }: PostCardProp) => {
         </Typography>
       </CardContent>
       <CardActions>
-        <IconButton>
+        <IconButton onClick={handleLikePost}>
           {user?.likedPosts.includes(post.id) ? (
             <Favorite />
           ) : (
             <FavoriteBorder />
           )}
+          <Typography variant="h6">{post.totalLikes}</Typography>
         </IconButton>
       </CardActions>
     </Card>
