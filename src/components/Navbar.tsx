@@ -1,14 +1,25 @@
-import { Explore, Home, Logout, Person } from '@mui/icons-material';
-import { AppBar, IconButton, Stack, Tooltip, Typography } from '@mui/material';
+import { Create, Explore, Home, Logout, Person } from '@mui/icons-material';
+import {
+  AppBar,
+  IconButton,
+  Portal,
+  Stack,
+  Tooltip,
+  Typography,
+} from '@mui/material';
 import { Box } from '@mui/system';
-import { useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useUser } from '../hooks/useUser';
+import AddPostModal from './AddPostModal';
 import TooltipIconButton from './TooltipIconButton';
 
 const Navbar = () => {
+  const [modalOpen, setModalOpen] = useState(false);
   const { isLogged, logout } = useUser();
   const history = useHistory();
+
+  const container = useRef(null);
 
   useEffect(() => {
     if (!isLogged) {
@@ -18,28 +29,42 @@ const Navbar = () => {
 
   function loggedUserLinks() {
     return (
-      <Stack direction="row" spacing={1}>
-        <Link to="/home">
-          <TooltipIconButton title="Home">
-            <Home sx={{ color: 'white' }} fontSize="small" />
-          </TooltipIconButton>
-        </Link>
-        <Link to="/explore">
-          <TooltipIconButton title="Explore">
-            <Explore sx={{ color: 'white' }} fontSize="small" />
-          </TooltipIconButton>
-        </Link>
-        <Link to="/profile">
-          <TooltipIconButton title="Profile">
-            <Person sx={{ color: 'white' }} fontSize="small" />
-          </TooltipIconButton>
-        </Link>
-        <Tooltip title="Logout">
-          <IconButton onClick={logout}>
-            <Logout sx={{ color: 'white' }} fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      </Stack>
+      <>
+        <Stack direction="row" spacing={1}>
+          <Tooltip title="Create post">
+            <IconButton onClick={() => setModalOpen(true)}>
+              <Create sx={{ color: 'white' }} fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Link to="/home">
+            <TooltipIconButton title="Home">
+              <Home sx={{ color: 'white' }} fontSize="small" />
+            </TooltipIconButton>
+          </Link>
+          <Link to="/explore">
+            <TooltipIconButton title="Explore">
+              <Explore sx={{ color: 'white' }} fontSize="small" />
+            </TooltipIconButton>
+          </Link>
+          <Link to="/profile">
+            <TooltipIconButton title="Profile">
+              <Person sx={{ color: 'white' }} fontSize="small" />
+            </TooltipIconButton>
+          </Link>
+          <Tooltip title="Logout">
+            <IconButton onClick={logout}>
+              <Logout sx={{ color: 'white' }} fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+
+        <Portal container={container.current}>
+          <AddPostModal
+            modalOpen={modalOpen}
+            onClose={() => setModalOpen(false)}
+          />
+        </Portal>
+      </>
     );
   }
 
