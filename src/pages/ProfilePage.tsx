@@ -1,3 +1,4 @@
+import { Button, Container } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import PostCard from '../components/PostCard';
 import ProfileHeader from '../components/ProfileHeader';
@@ -42,17 +43,17 @@ const ProfilePage = () => {
   }, [user]);
 
   return (
-    <div>
+    <Container>
       <ProfileHeader user={user!} />
       {userPosts.map((post) => (
         <PostCard post={post} key={post.id} />
       ))}
       {!state.allLoaded && user?.posts.length! > 0 && (
-        <button type="button" onClick={handleLoadMore} disabled={state.loading}>
+        <Button onClick={handleLoadMore} disabled={state.loading}>
           Load more
-        </button>
+        </Button>
       )}
-    </div>
+    </Container>
   );
 };
 
